@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../models');
+// Import the custom middleware
 const withAuth = require('../utils/auth');
 
 // Prevent non logged in users from viewing the homepage
