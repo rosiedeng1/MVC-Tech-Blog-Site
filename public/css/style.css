@@ -26,7 +26,7 @@
   .hero p {
     max-width: 75%;
   }
-  
+
   .app-title {
     font-size: 3rem;
     background-color: var(--primary);
@@ -35,4 +35,15 @@
     display: inline-block;
     border-radius: var(--border-radius);
     box-shadow: 6px 5px var(--light-dark);
+  }
+
+  .form { 
+    margin-left: 50px;
+    display: flex; 
+    justify-content: space-around;
+  }
+
+  .page-title { 
+    display: flex; 
+    justify-content: center;
   }

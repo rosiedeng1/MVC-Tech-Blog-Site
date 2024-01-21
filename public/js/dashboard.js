@@ -3,7 +3,8 @@ const newFormHandler = async (event) => {
   
     const title = document.querySelector('#blog-title').value.trim();
     const content = document.querySelector('#content').value.trim();
-  
+
+    // Add post 
     if (title && content) {
       const response = await fetch(`/api/post`, {
         method: 'POST',
@@ -22,6 +23,8 @@ const newFormHandler = async (event) => {
   };
   
   const delButtonHandler = async (event) => {
+
+    // Delete post 
     if (event.target.hasAttribute('data-id')) {
       const id = event.target.getAttribute('data-id');
   
@@ -40,3 +43,8 @@ const newFormHandler = async (event) => {
   document
     .querySelector('.new-post-form')
     .addEventListener('submit', newFormHandler);
+
+    document
+  .querySelector('.blog-list')
+  .addEventListener('click', delButtonHandler);
+
