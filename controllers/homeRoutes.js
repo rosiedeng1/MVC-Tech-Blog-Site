@@ -34,3 +34,14 @@ router.get('/login', (req, res) => {
 });
 
 module.exports = router;
+
+
+// Renders the dashboard 
+router.get('/dashboard', (req, res) => {
+  
+  res.render('dashboard');
+});
+
+
+
+module.exports = router;
