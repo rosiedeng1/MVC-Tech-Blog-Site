@@ -11,10 +11,10 @@ router.get('/', withAuth, async (req, res) => {
       order: [['username', 'ASC']],
     });
 
-    const users = userData.map((project) => project.get({ plain: true }));
+    const posts = userData.map((project) => project.get({ plain: true }));
 
     res.render('homepage', {
-      users,
+      posts,
       // Pass the logged in flag to the template
       logged_in: req.session.logged_in,
     });
