@@ -12,10 +12,10 @@ Use "npm run seed" to seed your data and then "npm run start" to start the appli
 -If you click on Signup, and then click on Login to login, it will be able to log you in 
 -Update routes for the posts are updating properly in Insomnia, code to show in html seems correct but not loading 
 
-![BlogInfo](images/BlogInfo.png)
-![SignUpLogin](images/SignUpLogin.png)
-![CreateandViewPosts](images/CreateandViewPosts.png)
-![UpdatePost](images/UpdatePost.png)
+![BlogInfo](Images/BlogInfo.png)
+![SignUpLogin](Images/SignUpLogin.png)
+![CreateandViewPosts](Images/CreateandViewPosts.png)
+![UpdatePost](Images/UpdatePost.png)
 
 Instructions for ![BlogInfo]: When you click on the homeage, you should be able to see any existing posts with the title, content, date post was created and the user who created the post 
 Instructions for ![SignUpLogin]: When you click Sign Up, you should be able to sign up. Click on login in the nav bar again to log in and it will log you in with a logout button to log you out
