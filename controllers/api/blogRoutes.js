@@ -6,7 +6,7 @@ const withAuth = require('../../utils/auth');
 // Post route for creating a new post 
 router.post('/', async (req, res) => {
   try {
-    console.log("rosie session: " + JSON.stringify(req.session))
+    console.log("session: " + JSON.stringify(req.session))
     const newPost = await Post.create({
       ...req.body,
       user_id: req.session.user_id,
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  console.log('rosiedelete')
+  console.log('delete')
   try {
     const postData = await Post.destroy({
       where: {
@@ -42,7 +42,7 @@ router.delete('/:id', async (req, res) => {
 router.get('/', (req, res) => {
   // Finds all the posts and includes its associated Posts 
   Post.findAll( {
-    include: [Post]
+    // include: [Post]
   }).then((postData) => {
     res.json(postData);
   });
@@ -87,14 +87,15 @@ router.get('/', (req, res) => {
     }
   });
 
-
+// Route for updating a blog post 
 router.put('/:id', (req, res) => {
   // update a post by its `id` value
   Post.update(
     {
       // All the fields you can update and the data attached to the request body.
+      title: req.body.title,
       content: req.body.content,
-      id: req.body.id,
+      // id: req.body.id,
     },
     {
       // Gets the tag based on the id given in the request parameters
