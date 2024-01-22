@@ -48,32 +48,12 @@ router.get('/', (req, res) => {
   });
 });
 
-// Finds one post by its 'id' value and includes its associated Products 
-// router.get('/:id', (req, res) => {
-//   Post.findOne(
-//     {
-//       // Gets the post based on the id given in the request parameters
-//       where: { 
-//         id: req.params.id 
-//       },
-//     }
-//     ).then((postData) => {
-//       res.json(postData);
-//     });
-
-//     // TODO: generate frontend using the handlebars
-//   });
-
       // Updates the blog post using a get route (generates the html)
   router.get('/:id', async (req, res) => {
     try {
       const postData = await Post.findByPk(req.params.id, {
-        // include: [
-        //   {
-        //     model: User,
-        //     attributes: ['name'],
-        //   },
-        // ],
+      include: [
+        ],
       });
   
       const post = postData.get({ plain: true });
@@ -111,5 +91,18 @@ router.put('/:id', (req, res) => {
     .catch((err) => res.json(err));
   });
 
+// Finds one post by its 'id' value and includes its associated Posts 
+// router.get('/:id', (req, res) => {
+//   Post.findOne(
+//     {
+//       // Gets the post based on the id given in the request parameters
+//       where: { 
+//         id: req.params.id 
+//       },
+//     }
+//     ).then((postData) => {
+//       res.json(postData);
+//     });
 
+//   });
 module.exports = router;
