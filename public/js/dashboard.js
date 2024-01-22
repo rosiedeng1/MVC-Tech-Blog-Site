@@ -50,6 +50,6 @@ const newFormHandler = async (event) => {
     console.log('check')
 
     document
-  .querySelector('.post-list')
+  .querySelector('.blog-list')
   .addEventListener('click', delButtonHandler);
 

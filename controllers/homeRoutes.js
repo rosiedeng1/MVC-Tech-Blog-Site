@@ -3,16 +3,19 @@ const { User, Post } = require('../models');
 // Import the custom middleware
 const withAuth = require('../utils/auth');
 
-// Prevent non logged in users from viewing the homepage
-router.get('/', withAuth, async (req, res) => {
+
+//Get all the existing blog posts to show on homepage 
+router.get('/', async (req, res) => {
   try {
-    const userData = await User.findAll({
+    // Finds every single post in the post table 
+    const postData = await Post.findAll({
       attributes: { exclude: ['password'] },
-      order: [['username', 'ASC']],
+      include: [{ model: User}],
     });
     
-    const posts = userData.map((project) => project.get({ plain: true }));
-    
+    const posts = postData.map((post) => post.get({ plain: true }));
+    console.log('posts' + JSON.stringify(posts))
+
     res.render('homepage', {
       posts,
       // Pass the logged in flag to the template
@@ -23,6 +26,32 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    // Get all projects and JOIN with user data
+    const projectData = await Project.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    // Serialize data so the template can read it
+    const projects = projectData.map((project) => project.get({ plain: true }));
+
+    // Pass serialized data and session flag into template
+    res.render('homepage', { 
+      projects, 
+      logged_in: req.session.logged_in 
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
 router.get('/login', (req, res) => {
   // If a session exists, redirect the request to the homepage
   if (req.session.logged_in) {
@@ -32,9 +61,6 @@ router.get('/login', (req, res) => {
   
   res.render('login');
 });
-
-module.exports = router;
-
 
 // Renders the dashboard 
 router.get('/dashboard', withAuth, async (req, res) => {
