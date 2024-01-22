@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Post } = require('../models');
 // Import the custom middleware
 const withAuth = require('../utils/auth');
 
@@ -10,9 +10,9 @@ router.get('/', withAuth, async (req, res) => {
       attributes: { exclude: ['password'] },
       order: [['username', 'ASC']],
     });
-
+    
     const posts = userData.map((project) => project.get({ plain: true }));
-
+    
     res.render('homepage', {
       posts,
       // Pass the logged in flag to the template
@@ -29,7 +29,7 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-
+  
   res.render('login');
 });
 
@@ -37,11 +37,23 @@ module.exports = router;
 
 
 // Renders the dashboard 
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
+
+  // Get the user first using the user's id and then getting all the Posts associated with the User's id
+  const userData = await User.findByPk(req.session.user_id, {
+    attributes: { exclude: ['password'] },
+    include: [{ model: Post}],
+  });
   
-  res.render('dashboard');
-});
+  const user = userData.get({ plain: true });
 
-
-
-module.exports = router;
+  console.log("rosiedeng user: " + JSON.stringify(user))
+  
+  // Renders dashboard.handlebars
+  res.render('dashboard',   { ...user,
+    logged_in: true });
+  });
+  
+  
+  
+  module.exports = router;
